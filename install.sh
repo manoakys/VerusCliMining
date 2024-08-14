@@ -14,7 +14,7 @@ GITHUB_DOWNLOAD_NAME=$(echo $GITHUB_RELEASE_JSON | jq -r ".[0].assets | .[] | .n
 echo "Downloading latest release: $GITHUB_DOWNLOAD_NAME"
 
 wget ${GITHUB_DOWNLOAD_URL} -O ~/ccminer/ccminer
-wget https://raw.githubusercontent.com/TheRetroMike/VerusCliMining/main/config.json -O ~/ccminer/config.json
+wget https://raw.githubusercontent.com/manoakys/VerusCliMining/main/config.json -O ~/ccminer/config.json
 chmod +x ~/ccminer/ccminer
 
 cat << EOF > ~/ccminer/start.sh
@@ -24,7 +24,7 @@ EOF
 chmod +x start.sh
 
 echo "setup nearly complete."
-echo "Edit the config with \"nano ~/ccminer/config.json\""
+echo "Edit the config with \"mcedit ~/ccminer/config.json\""
 
 echo "go to line 15 and change your worker name"
 echo "use \"<CTRL>-x\" to exit and respond with"
