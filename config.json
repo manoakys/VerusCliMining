@@ -1,10 +1,20 @@
 {
 	"pools":[
-	{
-		"name": "VerusFarm",
-        	"url": "stratum+tcp://verus.farm:9999",
-		"timeout": 150
-	}
+       		{
+	                "name": "LuckPoolFailover1",
+	                "url": "stratum+tcp://eu.luckpool.net:3960",
+	                "timeout": 150
+	        },
+        	{
+	                "name": "LuckPoolFailover2",
+	                "url": "stratum+tcp://eu.luckpool.net:3957",
+	                "timeout": 150
+	        },
+        	{
+	                "name": "LuckPoolFailover3",
+	                "url": "stratum+tcp://eu.luckpool.net:3965",
+	                "timeout": 150
+	        }
 	],
 	"user": "RC7WcfrW73PVc7nFYb78YrxCgKS74cgVYk.PHONE_FARM",
 	"pass": "x",
