@@ -3,11 +3,15 @@
 # Acquire wake lock to prevent Android from sleeping during operation
 termux-wake-lock
 
-# Update repositories and upgrade packages
-pkg update -y && pkg upgrade -y
+# Define non-interactive options for APT and DPKG to bypass config prompts
+DEBIAN_FRONTEND=noninteractive
+APT_OPTS="-y -o Dpkg::Options::=--force-confnew"
 
-# Install required dependencies natively for Termux
-pkg install -y curl libcurl libjansson git screen nano jq wget mc openssl-1.1 termux-api
+# Update repositories and upgrade packages non-interactively
+pkg update $APT_OPTS && pkg upgrade $APT_OPTS
+
+# Install required dependencies non-interactively
+pkg install $APT_OPTS curl libcurl libjansson git screen nano jq wget mc openssl-1.1 termux-api
 
 # Setup miner directory
 mkdir -p ~/ccminer
