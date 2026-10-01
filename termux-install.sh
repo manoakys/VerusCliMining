@@ -10,8 +10,11 @@ APT_OPTS="-y -o Dpkg::Options::=--force-confnew"
 # Update repositories and upgrade packages
 pkg update $APT_OPTS && pkg upgrade $APT_OPTS
 
-# Install dependencies using native 'openssl' package name
+# Install dependencies - including root-repo / tur repo for legacy openssl 1.1 if needed
 pkg install $APT_OPTS curl libcurl libjansson git screen nano jq wget mc openssl termux-api
+
+# Try installing openssl1.1-tool or openssl-tool for legacy compatibility
+pkg install $APT_OPTS openssl1.1-tool 2>/dev/null || pkg install $APT_OPTS openssl-tool 2>/dev/null
 
 # Setup miner directory
 mkdir -p ~/ccminer
@@ -21,9 +24,9 @@ cd ~/ccminer
 GITHUB_RELEASE_JSON=$(curl --silent "https://api.github.com/repos/Oink70/Android-Mining/releases?per_page=1" | jq -c '[.[] | del (.body)]' 2>/dev/null)
 GITHUB_DOWNLOAD_URL=$(echo "$GITHUB_RELEASE_JSON" | jq -r ".[0].assets | .[] | .browser_download_url" 2>/dev/null)
 
-# Fallback to direct URL if API call fails or returns empty
+# Fallback to direct asset URL if API call fails or returns empty
 if [ -z "$GITHUB_DOWNLOAD_URL" ] || [ "$GITHUB_DOWNLOAD_URL" = "null" ]; then
-    echo "GitHub API request failed or rate-limited. Falling back to direct asset URL..."
+    echo "GitHub API request failed or rate-limited. Falling back to direct download link..."
     GITHUB_DOWNLOAD_URL="https://github.com/Oink70/Android-Mining/releases/latest/download/ccminer"
 fi
 
